@@ -18,40 +18,43 @@ import static org.junit.Assert.assertThat;
 public class DownloadAgentTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
-
-
     private File input;
-    private File output;
-    private BufferedWriter out;
+    private BufferedWriter bufferedWriter;
 
     @Before
     public void createTestData() {
         try {
             input = testFolder.newFile("test.txt");
-            out = new BufferedWriter(new FileWriter(input));
+            bufferedWriter = new BufferedWriter(new FileWriter(input));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void downloadTest(){
-        try {
-            out.write("wkgkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkksssssssssssssssssssssssssssssssssssssss;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String  abspath=new File("").getAbsolutePath();
-        System.out.println(abspath);
-        URI url = input.toURI();
-        DownloadAgent agent = new DownloadAgent();
-        assertThat(agent.downloаdFile(url.toString(), abspath), is(176));
     }
 
     @After
     public void cleanUp() {
         input.delete();
         assertThat(input.exists(), is(false));
+    }
+
+    @Test
+    public void happyPath() {
+        String current = "";
+        try {
+            bufferedWriter.write("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789");
+            bufferedWriter.close();
+            current = new File(".").getCanonicalPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        URI inputUrl = input.toURI();
+        DownloadAgent agent = new DownloadAgent();
+        assertThat(agent.downloаdFile(inputUrl.toString(), current), is(100));
+    }
+
+    @Test
+    public void incorrectUrl() {
+        DownloadAgent agent = new DownloadAgent();
+        assertThat(agent.downloаdFile("", ""), is(0));
     }
 }
