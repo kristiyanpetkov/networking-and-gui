@@ -38,7 +38,7 @@ public class DownloadAgent {
                 if (counter >= temp) {
                     temp += hundredth;
                     percent++;
-                    progress.progress(percent);
+                    progress.onProgressUpdated(percent);
                 }
             }
             inputStream.close();

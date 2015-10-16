@@ -59,7 +59,7 @@ public class DownloadAgentTest {
     public void happyPath() {
         DownloadAgent agent = new DownloadAgent(progressListener);
         context.checking(new Expectations() {{
-            exactly(100).of(progressListener).progress(with(any(Integer.class)));
+            exactly(100).of(progressListener).onProgressUpdated(with(any(Integer.class)));
         }});
         assertThat(agent.downloаdFile(inputUrl, projectDirectory), is(100));
     }
