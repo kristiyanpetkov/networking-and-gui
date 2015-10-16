@@ -1,14 +1,9 @@
 package com.clouway.downloadagent;
 
-import org.jmock.Expectations;
-import org.jmock.api.Invocation;
-import org.jmock.lib.action.CustomAction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.jmock.integration.junit4.JUnitRuleMockery;
-import org.jmock.auto.Mock;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.*;
@@ -16,6 +11,7 @@ import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -25,11 +21,6 @@ import static org.junit.Assert.assertThat;
 public class DownloadAgentTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
-    @Rule
-    public JUnitRuleMockery context = new JUnitRuleMockery();
-
-    @Mock
-    ProgressListener progressListener;
 
     private File input;
     private String current = "";
@@ -59,17 +50,17 @@ public class DownloadAgentTest {
 
     @Test
     public void happyPath() {
-        DownloadAgent agent = new DownloadAgent(progressListener);
-        context.checking(new Expectations() {{
-            exactly(100).of(progressListener).onProgressUpdated(with(any(Integer.class)));
-            will(new CustomAction("") {
-                int progress = 1;
-                @Override
-                public Object invoke(Invocation invocation) throws Throwable {
-                    return progress++;
-                }
-            });
-        }});
+        Listener listener=new Listener();
+        DownloadAgent agent = new DownloadAgent(listener);
         assertThat(agent.downloаdFile(inputUrl, projectDirectory), is(100));
+    }
+
+    class Listener implements ProgressListener {
+        int temp=1;
+        @Override
+        public void onProgressUpdated(int progressPercent) {
+            assertThat(progressPercent,is(equalTo(temp)));
+            temp++;
+        }
     }
 }
