@@ -2,26 +2,31 @@ package com.clouway.downloadagent;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
-import java.nio.Buffer;
 import java.nio.file.*;
 
 /**
  * @author Slavi Dichkov (slavidichkof@gmail.com)
  */
 public class DownloadAgent {
-    public int downloаdFile(String URL, String target) {
+    private ProgressViewer progress;
+
+    public DownloadAgent(ProgressViewer progress) {
+        this.progress = progress;
+    }
+
+    public int downloаdFile(URI downloadUrl, Path target) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
-        java.net.URL url = null;
+        URL url = null;
         int counter = 0;
         try {
-            url = new URL(URL);
-            Path path = Paths.get(URL).getFileName();
-            Path projectDirectory = Paths.get(target);
-            String fileName = projectDirectory.getParent() + "/" + String.valueOf(path.toString());
+            url = downloadUrl.toURL();
+            String fileName = url.getFile();
+            String targetLocation = target + fileName.substring(fileName.lastIndexOf('/'));
             inputStream = new BufferedInputStream(url.openStream());
-            outputStream = new BufferedOutputStream(new FileOutputStream(fileName));
+            outputStream = new BufferedOutputStream(new FileOutputStream(targetLocation));
             double length = inputStream.available();
             double hundredth = length / 100;
             double temp = hundredth;
@@ -33,9 +38,8 @@ public class DownloadAgent {
                 if (counter >= temp) {
                     temp += hundredth;
                     percent++;
-                    progress(percent);
+                    progress.progress(percent);
                 }
-                outputStream.flush();
             }
             inputStream.close();
             outputStream.close();
@@ -47,7 +51,5 @@ public class DownloadAgent {
         return counter;
     }
 
-    public void progress(int progressPercent){
-        System.out.println(progressPercent+"%");
-    }
+
 }
