@@ -48,19 +48,19 @@ public class DownloadAgentTest {
         assertThat(input.exists(), is(false));
     }
 
-    @Test
-    public void happyPath() {
-        Listener listener=new Listener();
-        DownloadAgent agent = new DownloadAgent(listener);
-        assertThat(agent.downloаdFile(inputUrl, projectDirectory), is(100));
-    }
-
-    class Listener implements ProgressListener {
-        int temp=1;
+    public class DownloadProgressListener implements ProgressListener {
+        int lastUpdatedProgress =1;
         @Override
         public void onProgressUpdated(int progressPercent) {
-            assertThat(progressPercent,is(equalTo(temp)));
-            temp++;
+                assertThat(progressPercent,is(equalTo(lastUpdatedProgress)));
+                lastUpdatedProgress++;
         }
+    }
+
+    @Test
+    public void happyPath() {
+        DownloadProgressListener downloadProgressListener =new DownloadProgressListener();
+        DownloadAgent agent = new DownloadAgent(downloadProgressListener);
+        assertThat(agent.downloаdFile(inputUrl, projectDirectory), is(100));
     }
 }
