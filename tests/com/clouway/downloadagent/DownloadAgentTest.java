@@ -1,6 +1,8 @@
 package com.clouway.downloadagent;
 
 import org.jmock.Expectations;
+import org.jmock.api.Invocation;
+import org.jmock.lib.action.CustomAction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -60,6 +62,13 @@ public class DownloadAgentTest {
         DownloadAgent agent = new DownloadAgent(progressListener);
         context.checking(new Expectations() {{
             exactly(100).of(progressListener).onProgressUpdated(with(any(Integer.class)));
+            will(new CustomAction("") {
+                int progress = 1;
+                @Override
+                public Object invoke(Invocation invocation) throws Throwable {
+                    return progress++;
+                }
+            });
         }});
         assertThat(agent.downloаdFile(inputUrl, projectDirectory), is(100));
     }
