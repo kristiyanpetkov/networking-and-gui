@@ -27,7 +27,7 @@ public class DownloadAgentTest {
     public JUnitRuleMockery context = new JUnitRuleMockery();
 
     @Mock
-    ProgressViewer progressViewer;
+    ProgressListener progressListener;
 
     private File input;
     private String current = "";
@@ -57,9 +57,9 @@ public class DownloadAgentTest {
 
     @Test
     public void happyPath() {
-        DownloadAgent agent = new DownloadAgent(progressViewer);
+        DownloadAgent agent = new DownloadAgent(progressListener);
         context.checking(new Expectations() {{
-            exactly(100).of(progressViewer).progress(with(any(Integer.class)));
+            exactly(100).of(progressListener).progress(with(any(Integer.class)));
         }});
         assertThat(agent.downloаdFile(inputUrl, projectDirectory), is(100));
     }

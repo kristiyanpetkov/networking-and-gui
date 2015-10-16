@@ -10,9 +10,9 @@ import java.nio.file.*;
  * @author Slavi Dichkov (slavidichkof@gmail.com)
  */
 public class DownloadAgent {
-    private ProgressViewer progress;
+    private ProgressListener progress;
 
-    public DownloadAgent(ProgressViewer progress) {
+    public DownloadAgent(ProgressListener progress) {
         this.progress = progress;
     }
 

@@ -3,6 +3,6 @@ package com.clouway.downloadagent;
 /**
  * @author Slavi Dichkov (slavidichkof@gmail.com)
  */
-public interface ProgressViewer {
+public interface ProgressListener {
     void progress(int progressPercent);
 }
