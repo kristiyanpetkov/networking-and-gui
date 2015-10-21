@@ -1,13 +1,15 @@
 package com.clouway.conversationclientserver;
 
-import org.junit.Before;
+import org.jmock.Expectations;
+import org.jmock.auto.Mock;
+import org.jmock.integration.junit4.JUnitRuleMockery;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -17,32 +19,46 @@ import static org.junit.Assert.assertThat;
  * @author Slavi Dichkov (slavidichkof@gmail.com)
  */
 public class ClientTest {
-    private final String message = "Hello! " + new Date();
+    public class TestServer {
+        private ServerSocket serverSocket;
 
-    @Before
-    public void setUp() {
-        Thread myThread = new Thread() {
-            public void run() {
-                PrintWriter out = null;
-                try {
-                    ServerSocket myServer = new ServerSocket(7777);
-                    Socket clien = myServer.accept();
-                    out = new PrintWriter(clien.getOutputStream(), true);
-                    out.println(message);
-                    out.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        public TestServer(int port) {
+            try {
+                serverSocket=new ServerSocket(port);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        };
-        myThread.start();
+        }
+        public boolean clientConnect(){
+            Socket clientSocket = null;
+            try {
+                clientSocket = serverSocket.accept();
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                String messageToSend = "Hello!";
+                out.println(messageToSend);
+                out.close();
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
     }
+
+    @Rule
+    public JUnitRuleMockery context = new JUnitRuleMockery();
+    @Mock
+    Display display;
 
     @Test
     public void clientReceiveMessage() {
-        ClientDisplay display = new ClientDisplay();
         Client client = new Client("localhost", 7777, display);
+        TestServer testServer=new TestServer(7777);
+        context.checking(new Expectations() {{
+            oneOf(display).setMessage("Hello!");
+        }});
         client.connect();
-        assertThat(message, is(equalTo(display.getMessage())));
+        testServer.clientConnect();
+        assertThat(client.lastMessage(),is(equalTo("Hello!")));
     }
 }

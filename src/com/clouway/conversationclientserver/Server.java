@@ -4,40 +4,34 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 
 /**
  * @author Slavi Dichkov (slavidichkof@gmail.com)
  */
 public class Server {
-    private final int port;
-    private final ServerDisplay display;
+    private final Clock clock;
     private ServerSocket serverSocket;
 
-    public Server(int port, ServerDisplay display) {
-        this.port = port;
-        this.display = display;
-    }
-
-    public void sendSystemData() {
+    public Server(int port,Clock clock) {
+        this.clock = clock;
         try {
-            startServer();
-            Socket clientSocket = serverSocket.accept();
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            String messageToSend = "Hello" + new Date();
-            display.setMessage(messageToSend);
-            out.println(messageToSend);
-        } catch (IOException e) {
-            System.out.println("Exception caught when trying to listen on port or listening for a connection");
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void startServer() {
-        try {
-            serverSocket = new ServerSocket(this.port);
+            serverSocket=new ServerSocket(port);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public boolean clientConnect(){
+        Socket clientSocket = null;
+        try {
+            clientSocket = serverSocket.accept();
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            String messageToSend = "Hello! "+ clock.currentDate();
+            out.println(messageToSend);
+            out.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
