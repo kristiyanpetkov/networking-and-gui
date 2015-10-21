@@ -42,7 +42,7 @@ public class ClientTest {
     public void clientReceiveMessage() {
         ClientDisplay display = new ClientDisplay();
         Client client = new Client("localhost", 7777, display);
-        client.start();
+        client.connect();
         assertThat(message, is(equalTo(display.getMessage())));
     }
 }
