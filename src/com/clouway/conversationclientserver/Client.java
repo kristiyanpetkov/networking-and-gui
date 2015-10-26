@@ -1,8 +1,6 @@
 package com.clouway.conversationclientserver;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -22,22 +20,13 @@ public class Client {
 
     public void connect() {
         try {
-           echoSocket = new Socket(this.hostName, this.port);
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to ");
-        }
-    }
-
-    public String lastMessage(){
-        BufferedReader in = null;
-        String receiveMessage="";
-        try {
-            in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+            echoSocket = new Socket(hostName, port);
+            String receiveMessage = "";
+            BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
             receiveMessage = in.readLine();
             display.setMessage(receiveMessage);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Couldn't get I/O for the connection to ");
         }
-        return receiveMessage;
     }
 }

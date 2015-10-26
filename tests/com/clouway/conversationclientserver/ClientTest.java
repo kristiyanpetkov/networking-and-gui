@@ -11,10 +11,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 /**
  * @author Slavi Dichkov (slavidichkof@gmail.com)
  */
@@ -24,12 +20,13 @@ public class ClientTest {
 
         public TestServer(int port) {
             try {
-                serverSocket=new ServerSocket(port);
+                serverSocket = new ServerSocket(port);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        public boolean clientConnect(){
+
+        public boolean listen() {
             Socket clientSocket = null;
             try {
                 clientSocket = serverSocket.accept();
@@ -52,13 +49,18 @@ public class ClientTest {
 
     @Test
     public void clientReceiveMessage() {
+        final TestServer testServer = new TestServer(7777);
         Client client = new Client("localhost", 7777, display);
-        TestServer testServer=new TestServer(7777);
         context.checking(new Expectations() {{
             oneOf(display).setMessage("Hello!");
         }});
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                testServer.listen();
+            }
+        });
+        thread.start();
         client.connect();
-        testServer.clientConnect();
-        assertThat(client.lastMessage(),is(equalTo("Hello!")));
     }
 }

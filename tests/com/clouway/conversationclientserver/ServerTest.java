@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.io.*;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -34,7 +36,7 @@ public class ServerTest {
             }
         }
 
-        public String lastMessage(){
+        public String lastReceiveMessage(){
             BufferedReader in = null;
             String receiveMessage="";
             try {
@@ -55,13 +57,16 @@ public class ServerTest {
     @Test
     public void serverSendingMessage() {
         Server server = new Server(7777, clock);
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        final Date date=new Date();
         TestClient testClient=new TestClient("localhost",7777);
         context.checking(new Expectations() {{
             oneOf(clock).currentDate();
-            will(returnValue("2015-12-12"));
+            will(returnValue(date));
         }});
+        server.start();
         testClient.connect();
-        server.clientConnect();
-        assertThat(testClient.lastMessage(), is("Hello! 2015-12-12"));
+        server.listen();
+        assertThat(testClient.lastReceiveMessage(), is("Hello! "+dateFormat.format(date)));
     }
 }
