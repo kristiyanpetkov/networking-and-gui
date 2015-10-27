@@ -7,7 +7,7 @@ import java.net.Socket;
  * @author Slavi Dichkov (slavidichkof@gmail.com)
  */
 public class Client {
-    private Socket echoSocket;
+    private Socket socket;
     private final String hostName;
     private final int port;
     private Display display;
@@ -20,9 +20,9 @@ public class Client {
 
     public void connect() {
         try {
-            echoSocket = new Socket(hostName, port);
+            socket = new Socket(hostName, port);
             String receiveMessage = "";
-            BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             receiveMessage = in.readLine();
             display.setMessage(receiveMessage);
         } catch (IOException e) {

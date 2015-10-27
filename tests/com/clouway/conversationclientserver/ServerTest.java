@@ -3,6 +3,7 @@ package com.clouway.conversationclientserver;
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 import org.jmock.integration.junit4.JUnitRuleMockery;
+import org.jmock.lib.concurrent.Synchroniser;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -50,13 +51,16 @@ public class ServerTest {
     }
 
     @Rule
-    public JUnitRuleMockery context = new JUnitRuleMockery();
+    public JUnitRuleMockery context = new JUnitRuleMockery(){{
+        setThreadingPolicy(new Synchroniser());
+    }};
+
     @Mock
     Clock clock;
 
     @Test
     public void serverSendingMessage() {
-        Server server = new Server(7777, clock);
+        final Server server = new Server(7777, clock);
         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
         final Date date=new Date();
         TestClient testClient=new TestClient("localhost",7777);
@@ -64,9 +68,15 @@ public class ServerTest {
             oneOf(clock).currentDate();
             will(returnValue(date));
         }});
-        server.start();
+        //server.start();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                server.listen();
+            }
+        });
+        thread.start();
         testClient.connect();
-        server.listen();
         assertThat(testClient.lastReceiveMessage(), is("Hello! "+dateFormat.format(date)));
     }
 }

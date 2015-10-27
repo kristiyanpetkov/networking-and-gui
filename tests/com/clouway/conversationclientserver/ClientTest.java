@@ -16,19 +16,18 @@ import java.net.Socket;
  */
 public class ClientTest {
     public class TestServer {
+        private final int port;
         private ServerSocket serverSocket;
 
         public TestServer(int port) {
-            try {
-                serverSocket = new ServerSocket(port);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            this.port = port;
         }
 
         public boolean listen() {
             Socket clientSocket = null;
             try {
+                serverSocket = new ServerSocket(port);
                 clientSocket = serverSocket.accept();
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                 String messageToSend = "Hello!";

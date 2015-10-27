@@ -20,17 +20,10 @@ public class Server {
         this.clock = clock;
     }
 
-    public void start() {
-        try {
-            serverSocket = new ServerSocket(port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public boolean listen() {
         Socket clientSocket = null;
         try {
+            serverSocket = new ServerSocket(port);
             clientSocket = serverSocket.accept();
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             String messageToSend = "Hello! " + dateFormat.format(clock.currentDate());
