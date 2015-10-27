@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 public class Server {
     private final int port;
     private final Clock clock;
-    private ServerSocket serverSocket;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public Server(int port, Clock clock) {
@@ -20,16 +19,18 @@ public class Server {
         this.clock = clock;
     }
 
-    public boolean listen() {
+    public boolean start() {
         Socket clientSocket = null;
         try {
-            serverSocket = new ServerSocket(port);
-            clientSocket = serverSocket.accept();
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            String messageToSend = "Hello! " + dateFormat.format(clock.currentDate());
-            out.println(messageToSend);
-            out.close();
-            return true;
+            ServerSocket serverSocket = new ServerSocket(port);
+            while (true){
+                clientSocket = serverSocket.accept();
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                String messageToSend = "Hello! " + dateFormat.format(clock.currentDate());
+                out.println(messageToSend);
+                out.close();
+                return true;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

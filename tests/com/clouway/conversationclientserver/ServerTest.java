@@ -23,6 +23,7 @@ public class ServerTest {
         private Socket echoSocket;
         private final String hostName;
         private final int port;
+        private String receiveMessage;
 
         public TestClient(String hostName, int port) {
             this.hostName = hostName;
@@ -32,21 +33,15 @@ public class ServerTest {
         public void connect() {
             try {
                 echoSocket = new Socket(this.hostName, this.port);
+                BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+                receiveMessage = in.readLine();
             } catch (IOException e) {
                 System.err.println("Couldn't get I/O for the connection to ");
             }
         }
 
-        public String lastReceiveMessage(){
-            BufferedReader in = null;
-            String receiveMessage="";
-            try {
-                in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-                receiveMessage = in.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return receiveMessage;
+        public void assertLastReceivedMessageIs(String message){
+            assertThat(receiveMessage, is(message));
         }
     }
 
@@ -68,15 +63,14 @@ public class ServerTest {
             oneOf(clock).currentDate();
             will(returnValue(date));
         }});
-        //server.start();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                server.listen();
+                server.start();
             }
         });
         thread.start();
         testClient.connect();
-        assertThat(testClient.lastReceiveMessage(), is("Hello! "+dateFormat.format(date)));
+        testClient.assertLastReceivedMessageIs("Hello! " + dateFormat.format(date));
     }
 }
