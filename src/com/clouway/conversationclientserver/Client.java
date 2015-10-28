@@ -20,10 +20,10 @@ public class Client {
     public void connect() {
         try {
             Socket socket = new Socket(hostName, port);
-            String receiveMessage = "";
+            String receivedMessage = "";
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            receiveMessage = in.readLine();
-            display.setMessage(receiveMessage);
+            receivedMessage = in.readLine();
+            display.setMessage(receivedMessage);
         } catch (IOException e) {
             System.err.println("Couldn't get I/O for the connection to ");
         }

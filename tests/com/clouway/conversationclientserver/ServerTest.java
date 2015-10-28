@@ -23,7 +23,7 @@ public class ServerTest {
         private Socket echoSocket;
         private final String hostName;
         private final int port;
-        private String receiveMessage;
+        private String receivedMessage;
 
         public TestClient(String hostName, int port) {
             this.hostName = hostName;
@@ -34,14 +34,14 @@ public class ServerTest {
             try {
                 echoSocket = new Socket(this.hostName, this.port);
                 BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-                receiveMessage = in.readLine();
+                receivedMessage = in.readLine();
             } catch (IOException e) {
                 System.err.println("Couldn't get I/O for the connection to ");
             }
         }
 
         public void assertLastReceivedMessageIs(String message) {
-            assertThat(receiveMessage, is(message));
+            assertThat(receivedMessage, is(message));
         }
     }
 
