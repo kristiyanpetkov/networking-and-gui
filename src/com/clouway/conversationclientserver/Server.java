@@ -19,21 +19,25 @@ public class Server {
         this.clock = clock;
     }
 
-    public boolean start() {
-        Socket clientSocket = null;
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            while (true){
-                clientSocket = serverSocket.accept();
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                String messageToSend = "Hello! " + dateFormat.format(clock.currentDate());
-                out.println(messageToSend);
-                out.close();
-                return true;
+    public void start() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Socket clientSocket = null;
+                try {
+                    ServerSocket serverSocket = new ServerSocket(port);
+                    while (true){
+                        clientSocket = serverSocket.accept();
+                        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                        String messageToSend = "Hello! " + dateFormat.format(clock.currentDate());
+                        out.println(messageToSend);
+                        out.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+        });
+        thread.start();
     }
 }

@@ -40,13 +40,13 @@ public class ServerTest {
             }
         }
 
-        public void assertLastReceivedMessageIs(String message){
+        public void assertLastReceivedMessageIs(String message) {
             assertThat(receiveMessage, is(message));
         }
     }
 
     @Rule
-    public JUnitRuleMockery context = new JUnitRuleMockery(){{
+    public JUnitRuleMockery context = new JUnitRuleMockery() {{
         setThreadingPolicy(new Synchroniser());
     }};
 
@@ -56,21 +56,19 @@ public class ServerTest {
     @Test
     public void serverSendingMessage() {
         final Server server = new Server(7777, clock);
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-        final Date date=new Date();
-        TestClient testClient=new TestClient("localhost",7777);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final Date now = new Date();
+        TestClient testClient = new TestClient("localhost", 7777);
+        pretendThatServerTimeIs(now);
+        server.start();
+        testClient.connect();
+        testClient.assertLastReceivedMessageIs("Hello! " + dateFormat.format(now));
+    }
+
+    private void pretendThatServerTimeIs(final Date time) {
         context.checking(new Expectations() {{
             oneOf(clock).currentDate();
-            will(returnValue(date));
+            will(returnValue(time));
         }});
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                server.start();
-            }
-        });
-        thread.start();
-        testClient.connect();
-        testClient.assertLastReceivedMessageIs("Hello! " + dateFormat.format(date));
     }
 }
