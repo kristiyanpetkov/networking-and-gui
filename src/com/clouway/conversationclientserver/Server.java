@@ -1,7 +1,7 @@
 package com.clouway.conversationclientserver;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
@@ -12,8 +12,9 @@ import java.text.SimpleDateFormat;
 public class Server {
     private final int port;
     private final Clock clock;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private  ServerSocket serverSocket;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private ServerSocket serverSocket;
+
     public Server(int port, Clock clock) {
         this.port = port;
         this.clock = clock;
@@ -25,24 +26,32 @@ public class Server {
             public void run() {
 
                 try {
-                     serverSocket = new ServerSocket(port);
-                    Socket clientSocket = null;
-                    while (true){
-                        clientSocket = serverSocket.accept();
-                        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                        String messageToSend = "Hello! " + dateFormat.format(clock.currentDate());
-                        out.println(messageToSend);
-                        out.close();
-                    }
+                    serverSocket = new ServerSocket(port);
                 } catch (IOException e) {
-                    System.out.println(serverSocket.isClosed());
+                    e.printStackTrace();
+                }
+                Socket clientSocket = null;
+                while (!serverSocket.isClosed()) {
+                    OutputStream out;
+                    try {
+                        clientSocket = serverSocket.accept();
+                        out = clientSocket.getOutputStream();
+                        String messageToSend = "Hello! " + dateFormat.format(clock.currentDate());
+                        byte[] bytesToSend = messageToSend.getBytes();
+                        for (byte b : bytesToSend) {
+                            out.write(b);
+                        }
+                        out.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
         thread.start();
     }
 
-    public void stop(){
+    public void stop() {
         try {
             serverSocket.close();
         } catch (IOException e) {

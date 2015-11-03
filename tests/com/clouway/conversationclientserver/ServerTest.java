@@ -20,10 +20,10 @@ import static org.junit.Assert.assertThat;
  */
 public class ServerTest {
     public class TestClient {
-        private Socket echoSocket;
+        private Socket socket;
         private final String hostName;
         private final int port;
-        private String receivedMessage;
+        private String receivedMessage="";
 
         public TestClient(String hostName, int port) {
             this.hostName = hostName;
@@ -32,9 +32,12 @@ public class ServerTest {
 
         public void connect() {
             try {
-                echoSocket = new Socket(this.hostName, this.port);
-                BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-                receivedMessage = in.readLine();
+                socket = new Socket(this.hostName, this.port);
+                InputStream inputStream= socket.getInputStream();
+                int i;
+                while ((i=inputStream.read())!=-1){
+                    receivedMessage+=(char)i;
+                }
             } catch (IOException e) {
                 System.err.println("Couldn't get I/O for the connection to ");
             }
@@ -68,15 +71,15 @@ public class ServerTest {
 
     @Test
     public void serverSendingMessageWhitDifferentDate() {
-        final Server server = new Server(7777, clock);
+        final Server server1 = new Server(7777, clock);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         final Date anyDate = new Date(115,15,7);
         TestClient testClient = new TestClient("localhost", 7777);
         pretendThatServerTimeIs(anyDate);
-        server.start();
+        server1.start();
         testClient.connect();
         testClient.assertLastReceivedMessageIs("Hello! " + dateFormat.format(anyDate));
-        server.stop();
+        server1.stop();
     }
 
     private void pretendThatServerTimeIs(final Date time) {

@@ -9,7 +9,7 @@ import java.net.Socket;
 public class Client {
     private final String hostName;
     private final int port;
-    private Display display;
+    private final Display display;
 
     public Client(String hostName, int port, Display display) {
         this.hostName = hostName;
@@ -20,9 +20,12 @@ public class Client {
     public void connect() {
         try {
             Socket socket = new Socket(hostName, port);
-            String receivedMessage = "";
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            receivedMessage = in.readLine();
+            InputStream inputStream= socket.getInputStream();
+            int i;
+            String receivedMessage="";
+            while ((i=inputStream.read())!=-1){
+                receivedMessage+=(char)i;
+            }
             display.setMessage(receivedMessage);
         } catch (IOException e) {
             System.err.println("Couldn't get I/O for the connection to ");
