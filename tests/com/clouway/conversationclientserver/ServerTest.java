@@ -67,7 +67,7 @@ public class ServerTest {
     }
 
     @Test
-    public void serverSendingMessage1() {
+    public void serverSendingMessageWhitDifferentDate() {
         final Server server = new Server(7777, clock);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         final Date anyDate = new Date(115,15,7);
