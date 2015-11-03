@@ -63,6 +63,20 @@ public class ServerTest {
         server.start();
         testClient.connect();
         testClient.assertLastReceivedMessageIs("Hello! " + dateFormat.format(now));
+        server.stop();
+    }
+
+    @Test
+    public void serverSendingMessage1() {
+        final Server server = new Server(7777, clock);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final Date anyDate = new Date(115,15,7);
+        TestClient testClient = new TestClient("localhost", 7777);
+        pretendThatServerTimeIs(anyDate);
+        server.start();
+        testClient.connect();
+        testClient.assertLastReceivedMessageIs("Hello! " + dateFormat.format(anyDate));
+        server.stop();
     }
 
     private void pretendThatServerTimeIs(final Date time) {

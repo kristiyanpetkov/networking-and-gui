@@ -24,20 +24,24 @@ public class ClientTest {
             this.port = port;
         }
 
-        public boolean listen() {
-            Socket clientSocket = null;
-            try {
-                serverSocket = new ServerSocket(port);
-                clientSocket = serverSocket.accept();
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                String messageToSend = "Hello!";
-                out.println(messageToSend);
-                out.close();
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return false;
+        public void start() {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Socket clientSocket = null;
+                    try {
+                        serverSocket = new ServerSocket(port);
+                        clientSocket = serverSocket.accept();
+                        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                        String messageToSend = "Hello!";
+                        out.println(messageToSend);
+                        out.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
         }
     }
 
@@ -53,13 +57,7 @@ public class ClientTest {
         context.checking(new Expectations() {{
             oneOf(display).setMessage("Hello!");
         }});
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                testServer.listen();
-            }
-        });
-        thread.start();
+        testServer.start();
         client.connect();
     }
 }

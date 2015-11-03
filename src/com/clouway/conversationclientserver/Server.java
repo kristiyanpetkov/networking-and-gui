@@ -13,7 +13,7 @@ public class Server {
     private final int port;
     private final Clock clock;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+    private  ServerSocket serverSocket;
     public Server(int port, Clock clock) {
         this.port = port;
         this.clock = clock;
@@ -23,9 +23,10 @@ public class Server {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                Socket clientSocket = null;
+
                 try {
-                    ServerSocket serverSocket = new ServerSocket(port);
+                     serverSocket = new ServerSocket(port);
+                    Socket clientSocket = null;
                     while (true){
                         clientSocket = serverSocket.accept();
                         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -34,10 +35,18 @@ public class Server {
                         out.close();
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    System.out.println(serverSocket.isClosed());
                 }
             }
         });
         thread.start();
+    }
+
+    public void stop(){
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
