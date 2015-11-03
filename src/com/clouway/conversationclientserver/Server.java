@@ -31,7 +31,7 @@ public class Server {
                     e.printStackTrace();
                 }
                 Socket clientSocket = null;
-                while (!serverSocket.isClosed()) {
+                while (true) {
                     OutputStream out;
                     try {
                         clientSocket = serverSocket.accept();
@@ -43,7 +43,7 @@ public class Server {
                         }
                         out.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        break;
                     }
                 }
             }
