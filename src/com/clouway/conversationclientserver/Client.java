@@ -21,12 +21,10 @@ public class Client {
         try {
             Socket socket = new Socket(hostName, port);
             InputStream inputStream= socket.getInputStream();
-            int i;
-            String receivedMessage="";
-            while ((i=inputStream.read())!=-1){
-                receivedMessage+=(char)i;
-            }
-            display.setMessage(receivedMessage);
+            byte[] b=new byte[500];
+            int read=inputStream.read(b);
+            String message=new String(b,0,read-1);
+            display.setMessage(message);
         } catch (IOException e) {
             System.err.println("Couldn't get I/O for the connection to ");
         }

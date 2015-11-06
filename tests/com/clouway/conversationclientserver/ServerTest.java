@@ -34,10 +34,9 @@ public class ServerTest {
             try {
                 socket = new Socket(this.hostName, this.port);
                 InputStream inputStream= socket.getInputStream();
-                int i;
-                while ((i=inputStream.read())!=-1){
-                    receivedMessage+=(char)i;
-                }
+                byte[] b=new byte[500];
+                int read=inputStream.read(b);
+                receivedMessage=new String(b,0,read);
             } catch (IOException e) {
                 System.err.println("Couldn't get I/O for the connection to ");
             }
@@ -73,7 +72,7 @@ public class ServerTest {
     public void serverSendingMessageWhitDifferentDate() {
         final Server server1 = new Server(7777, clock);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        final Date anyDate = new Date(115,15,7);
+        final Date anyDate = new Date(115,8,7);
         TestClient testClient = new TestClient("localhost", 7777);
         pretendThatServerTimeIs(anyDate);
         server1.start();

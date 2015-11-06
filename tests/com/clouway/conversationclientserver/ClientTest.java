@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -32,13 +33,9 @@ public class ClientTest {
                     try {
                         serverSocket = new ServerSocket(port);
                         clientSocket = serverSocket.accept();
-                        OutputStream out = clientSocket.getOutputStream();
+                        PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
                         String messageToSend = "Hello!";
-                        byte[] bytesToSend=messageToSend.getBytes();
-                        for (int i = 0; i < bytesToSend.length; i++) {
-                            byte b = bytesToSend[i];
-                            out.write(b);
-                        }
+                        out.println(messageToSend);
                         out.close();
                     } catch (IOException e) {
                         e.printStackTrace();
