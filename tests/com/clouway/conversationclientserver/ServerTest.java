@@ -1,9 +1,12 @@
 package com.clouway.conversationclientserver;
 
+import com.clouway.practice.guavaclientserver.ServerGuava;
 import org.jmock.Expectations;
 import org.jmock.auto.Mock;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.jmock.lib.concurrent.Synchroniser;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -19,6 +22,9 @@ import static org.junit.Assert.assertThat;
  * @author Slavi Dichkov (slavidichkof@gmail.com)
  */
 public class ServerTest {
+    private Server server;
+    private Clock clock;
+
     public class TestClient {
         private Socket socket;
         private final String hostName;
@@ -52,33 +58,32 @@ public class ServerTest {
         setThreadingPolicy(new Synchroniser());
     }};
 
-    @Mock
-    Clock clock;
+    @Before
+    public void setUp() {
+        clock = context.mock(Clock.class);
+        server = new Server(7777, clock);
+        server.startAsync();
+        server.awaitRunning();
+    }
 
     @Test
     public void serverSendingMessage() {
-        final Server server = new Server(7777, clock);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         final Date now = new Date();
-        TestClient testClient = new TestClient("localhost", 7777);
         pretendThatServerTimeIs(now);
-        server.start();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        TestClient testClient = new TestClient("localhost", 7777);
         testClient.connect();
         testClient.assertLastReceivedMessageIs("Hello! " + dateFormat.format(now));
-        server.stop();
     }
 
     @Test
     public void serverSendingMessageWhitDifferentDate() {
-        final Server server1 = new Server(7777, clock);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         final Date anyDate = new Date(115,8,7);
-        TestClient testClient = new TestClient("localhost", 7777);
         pretendThatServerTimeIs(anyDate);
-        server1.start();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        TestClient testClient = new TestClient("localhost", 7777);
         testClient.connect();
         testClient.assertLastReceivedMessageIs("Hello! " + dateFormat.format(anyDate));
-        server1.stop();
     }
 
     private void pretendThatServerTimeIs(final Date time) {
@@ -86,5 +91,11 @@ public class ServerTest {
             oneOf(clock).currentDate();
             will(returnValue(time));
         }});
+
+    }
+
+    @After
+    public void close() {
+        server.stopAsync();
     }
 }
