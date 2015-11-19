@@ -1,8 +1,6 @@
 package com.clouway.conversationclientserver;
 
-import com.clouway.practice.guavaclientserver.ServerGuava;
 import org.jmock.Expectations;
-import org.jmock.auto.Mock;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.jmock.lib.concurrent.Synchroniser;
 import org.junit.After;
@@ -21,8 +19,8 @@ import static org.junit.Assert.assertThat;
 /**
  * @author Slavi Dichkov (slavidichkof@gmail.com)
  */
-public class ServerTest {
-    private Server server;
+public class SingleThreadedServerTest {
+    private SingleThreadedServer server;
     private Clock clock;
 
     public class TestClient {
@@ -61,7 +59,7 @@ public class ServerTest {
     @Before
     public void setUp() {
         clock = context.mock(Clock.class);
-        server = new Server(7777, clock);
+        server = new SingleThreadedServer(7777, clock);
         server.startAsync();
         server.awaitRunning();
     }

@@ -9,13 +9,13 @@ import java.text.SimpleDateFormat;
 /**
  * @author Slavi Dichkov (slavidichkof@gmail.com)
  */
-public class Server extends AbstractExecutionThreadService {
+public class SingleThreadedServer extends AbstractExecutionThreadService {
     private final int port;
     private final Clock clock;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private ServerSocket serverSocket;
     private PrintWriter out;
-    public Server(int port, Clock clock) {
+    public SingleThreadedServer(int port, Clock clock) {
         this.port = port;
         this.clock = clock;
     }
