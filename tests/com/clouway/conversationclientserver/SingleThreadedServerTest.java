@@ -84,16 +84,15 @@ public class SingleThreadedServerTest {
         testClient.assertLastReceivedMessageIs("Hello! " + dateFormat.format(anyDate));
     }
 
+    @After
+    public void stop() {
+        server.stopAsync();
+    }
+
     private void pretendThatServerTimeIs(final Date time) {
         context.checking(new Expectations() {{
             oneOf(clock).currentDate();
             will(returnValue(time));
         }});
-
-    }
-
-    @After
-    public void close() {
-        server.stopAsync();
     }
 }
