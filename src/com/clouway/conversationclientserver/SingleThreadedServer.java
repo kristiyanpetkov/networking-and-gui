@@ -1,6 +1,7 @@
 package com.clouway.conversationclientserver;
 
 import com.google.common.util.concurrent.AbstractExecutionThreadService;
+import com.google.common.util.concurrent.Service;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -15,6 +16,7 @@ public class SingleThreadedServer extends AbstractExecutionThreadService {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private ServerSocket serverSocket;
     private PrintWriter out;
+
     public SingleThreadedServer(int port, Clock clock) {
         this.port = port;
         this.clock = clock;
@@ -47,7 +49,7 @@ public class SingleThreadedServer extends AbstractExecutionThreadService {
     protected void triggerShutdown() {
         try {
             serverSocket.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -1,5 +1,6 @@
 package com.clouway.conversationclientserver;
 
+import com.google.common.util.concurrent.Service;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.jmock.lib.concurrent.Synchroniser;
@@ -13,6 +14,7 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.clouway.util.CalendarUtil.january;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -21,7 +23,7 @@ import static org.junit.Assert.assertThat;
  */
 public class SingleThreadedServerTest {
     private SingleThreadedServer server;
-    private Clock clock;
+    Synchroniser synchroniser=new Synchroniser();
 
     public class TestClient {
         private Socket socket;
@@ -53,15 +55,19 @@ public class SingleThreadedServerTest {
 
     @Rule
     public JUnitRuleMockery context = new JUnitRuleMockery() {{
-        setThreadingPolicy(new Synchroniser());
+        setThreadingPolicy(synchroniser);
     }};
+
+    private Clock clock;
+
+    private Service service;
 
     @Before
     public void setUp() {
         clock = context.mock(Clock.class);
         server = new SingleThreadedServer(7777, clock);
-        server.startAsync();
-        server.awaitRunning();
+        service = server.startAsync();
+        service.awaitRunning();
     }
 
     @Test
@@ -76,7 +82,7 @@ public class SingleThreadedServerTest {
 
     @Test
     public void serverSendingMessageWhitDifferentDate() {
-        final Date anyDate = new Date(115,8,7);
+        final Date anyDate = january(2015,23);
         pretendThatServerTimeIs(anyDate);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         TestClient testClient = new TestClient("localhost", 7777);
@@ -85,13 +91,13 @@ public class SingleThreadedServerTest {
     }
 
     @After
-    public void stop() {
-        server.stopAsync();
+    public void stopServer() {
+        service.stopAsync().awaitTerminated();
     }
 
     private void pretendThatServerTimeIs(final Date time) {
         context.checking(new Expectations() {{
-            oneOf(clock).currentDate();
+            allowing(clock).currentDate();
             will(returnValue(time));
         }});
     }
