@@ -9,7 +9,11 @@ import java.net.URLConnection;
  * Created by clouway on 15-12-1.
  */
 public class DownloadAgent {
-    public long progress;
+    ProgressSpectator progress;
+
+    public DownloadAgent(ProgressSpectator progress) {
+        this.progress = progress;
+    }
 
     public void downloadFile(URI uri, File fileName) {
         try {
@@ -22,11 +26,12 @@ public class DownloadAgent {
             int readByte;
             long size = fileLength / 100;
             long count = 1;
+            long percent;
             while ((readByte = in.read()) != -1) {
                 out.write(readByte);
                 if ((count % size) == 0) {
-                    progress = count / size;
-                    System.out.println(progress + " % downloaded");
+                    percent = count / size;
+                    progress.progressUpdate(percent);
                 }
                 count++;
             }
