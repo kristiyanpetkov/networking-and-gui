@@ -1,5 +1,4 @@
 *.class
-
 .idea/vcs.xml
 .idea/workspace.xml
 # Mobile Tools for Java (J2ME)
