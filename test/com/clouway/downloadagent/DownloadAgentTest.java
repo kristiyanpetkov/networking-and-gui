@@ -5,8 +5,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.io.File;
+import java.io.*;
 import java.net.URI;
+import java.nio.file.Path;
+import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
 
@@ -41,8 +43,8 @@ public class DownloadAgentTest {
     public void happyPath() throws Exception {
         DownloadProgressSpectator downloadProgressSpectator = new DownloadProgressSpectator();
         DownloadAgent downloadAgent = new DownloadAgent(downloadProgressSpectator);
-        URI uri = new URI("file:/home/clouway/workspaces/idea/networking-and-gui/javalogo.jpg");
+        URI uri1 = this.getClass().getResource("javalogo.jpg").toURI();
         fileName = folder.newFile("javalogo.jpg");
-        downloadAgent.downloadFile(uri, fileName);
+        downloadAgent.downloadFile(uri1, fileName);
     }
 }
