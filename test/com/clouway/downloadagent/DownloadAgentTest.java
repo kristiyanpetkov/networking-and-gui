@@ -1,15 +1,15 @@
 package com.clouway.downloadagent;
 
-import org.junit.After;
-import org.junit.Rule;
+
+import com.google.common.io.ByteStreams;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 
 import java.io.*;
 import java.net.URI;
-import java.nio.file.Path;
-import java.util.Properties;
+import java.net.URL;
+import java.net.URLConnection;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -18,33 +18,29 @@ import static org.junit.Assert.assertEquals;
 public class DownloadAgentTest {
 
     public class DownloadProgressSpectator implements ProgressSpectator {
-        private long downloadPercent = 1;
-
+        int testPercent=0;
         @Override
         public void progressUpdate(long percent) {
-            assertEquals(percent, downloadPercent);
-            System.out.println(downloadPercent + "%");
-            downloadPercent++;
+            if(testPercent!=percent){
+                System.out.println(percent + "%");
+                testPercent++;
+            }
+
         }
-    }
-
-    File fileName;
-
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
-
-    @After
-    public void clean(){
-        folder.delete();
-        assertEquals(fileName.exists(), false);
     }
 
     @Test
     public void happyPath() throws Exception {
         DownloadProgressSpectator downloadProgressSpectator = new DownloadProgressSpectator();
-        DownloadAgent downloadAgent = new DownloadAgent(downloadProgressSpectator);
-        URI uri1 = this.getClass().getResource("javalogo.jpg").toURI();
-        fileName = folder.newFile("javalogo.jpg");
-        downloadAgent.downloadFile(uri1, fileName);
+        DownloadAgent downloadAgent = new DownloadAgent(downloadProgressSpectator, "abvCopy.jpeg");
+        URI uri1 = this.getClass().getResource("abv.jpeg").toURI();
+        OutputStream out = new ByteArrayOutputStream();
+        downloadAgent.downloadFile(uri1, out);
+        InputStream in = new FileInputStream(downloadAgent.localFileName);
+        byte data1[] = ByteStreams.toByteArray(in);
+        URL url = uri1.toURL();
+        URLConnection urlConnection = url.openConnection();
+        byte data2[] = ByteStreams.toByteArray(urlConnection.getInputStream());
+        assertArrayEquals(data1, data2);
     }
 }

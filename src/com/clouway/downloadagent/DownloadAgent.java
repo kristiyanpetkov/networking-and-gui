@@ -10,31 +10,31 @@ import java.net.URLConnection;
  */
 public class DownloadAgent {
     ProgressSpectator progress;
+    String localFileName;
 
-    public DownloadAgent(ProgressSpectator progress) {
+    public DownloadAgent(ProgressSpectator progress, String localFileName) {
         this.progress = progress;
+        this.localFileName = localFileName;
     }
 
-    public void downloadFile(URI uri, File fileName) {
+    public void downloadFile(URI uri, OutputStream out) {
         try {
             URL url = uri.toURL();
             URLConnection connection = url.openConnection();
             connection.connect();
             long fileLength = connection.getContentLength();
             InputStream in = new BufferedInputStream(connection.getInputStream());
-            FileOutputStream out = new FileOutputStream(fileName);
-            int readByte;
-            long size = fileLength / 100;
-            long count = 1;
-            long percent;
-            while ((readByte = in.read()) != -1) {
-                out.write(readByte);
-                if ((count % size) == 0) {
-                    percent = count / size;
-                    progress.progressUpdate(percent);
-                }
-                count++;
+            out = new FileOutputStream(localFileName);
+            int numberOfBytesRead;
+            final byte buffer[] = new byte[2048];
+            long total = 0;
+            while ((numberOfBytesRead = in.read(buffer)) != -1) {
+                total += numberOfBytesRead;
+                long percent = ((int) ((total * 100) / fileLength));
+                out.write(buffer, 0, numberOfBytesRead);
+                progress.progressUpdate(percent);
             }
+            out.close();
         } catch (IOException ioEx) {
             ioEx.printStackTrace();
         }
