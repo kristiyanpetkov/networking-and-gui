@@ -9,8 +9,8 @@ import java.net.URLConnection;
  * Created by clouway on 15-12-1.
  */
 public class DownloadAgent {
-    ProgressSpectator progress;
-    String localFileName;
+    private ProgressSpectator progress;
+    public final String localFileName;
 
     public DownloadAgent(ProgressSpectator progress, String localFileName) {
         this.progress = progress;
