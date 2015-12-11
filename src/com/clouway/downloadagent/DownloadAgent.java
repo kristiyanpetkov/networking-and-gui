@@ -24,7 +24,7 @@ public class DownloadAgent {
             connection.connect();
             long fileLength = connection.getContentLength();
             InputStream in = new BufferedInputStream(connection.getInputStream());
-            out = new FileOutputStream(localFileName);
+            out =new FileOutputStream(localFileName);
             int numberOfBytesRead;
             final byte buffer[] = new byte[2048];
             long total = 0;

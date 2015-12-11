@@ -32,15 +32,18 @@ public class DownloadAgentTest {
     @Test
     public void happyPath() throws Exception {
         DownloadProgressSpectator downloadProgressSpectator = new DownloadProgressSpectator();
-        DownloadAgent downloadAgent = new DownloadAgent(downloadProgressSpectator, "abvCopy.jpeg");
+        DownloadAgent downloadAgent = new DownloadAgent(downloadProgressSpectator, "src/downloadedfiles/abvCopy.jpeg");
         URI uri1 = this.getClass().getResource("abv.jpeg").toURI();
         OutputStream out = new ByteArrayOutputStream();
         downloadAgent.downloadFile(uri1, out);
-        InputStream in = new FileInputStream(downloadAgent.localFileName);
+
+        InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream("downloadedfiles/abvCopy.jpeg");
         byte data1[] = ByteStreams.toByteArray(in);
+
         URL url = uri1.toURL();
         URLConnection urlConnection = url.openConnection();
         byte data2[] = ByteStreams.toByteArray(urlConnection.getInputStream());
+
         assertArrayEquals(data1, data2);
     }
 }
