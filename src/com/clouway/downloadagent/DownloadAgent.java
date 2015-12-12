@@ -12,22 +12,18 @@ import java.net.URLConnection;
  */
 public class DownloadAgent {
     private ProgressSpectator progress;
-    public final String localFileName;
 
-    public DownloadAgent(ProgressSpectator progress, String localFileName) {
+    public DownloadAgent(ProgressSpectator progress) {
         this.progress = progress;
-        this.localFileName = localFileName;
     }
 
-    public byte[] downloadFile(URI uri, OutputStream out) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    public void downloadFile(URI uri, OutputStream out) {
         try {
             URL url = uri.toURL();
             URLConnection connection = url.openConnection();
             connection.connect();
             long fileLength = connection.getContentLength();
             InputStream in = new BufferedInputStream(connection.getInputStream());
-            out = new FileOutputStream(localFileName);
             int numberOfBytesRead;
             final byte buffer[] = new byte[2048];
             long total = 0;
@@ -36,17 +32,14 @@ public class DownloadAgent {
                 total += numberOfBytesRead;
                 long percent = ((int) ((total * 100) / fileLength));
                 out.write(buffer, 0, numberOfBytesRead);
-                bos.write(buffer, 0, numberOfBytesRead);
                 if (percent == tempPercent) {
                     progress.progressUpdate(percent);
                     tempPercent++;
                 }
             }
             out.close();
-            bos.close();
         } catch (IOException ioEx) {
             ioEx.printStackTrace();
         }
-        return bos.toByteArray();
     }
 }

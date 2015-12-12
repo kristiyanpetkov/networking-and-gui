@@ -9,8 +9,11 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+
 
 /**
  * Created by clouway on 15-12-1.
@@ -22,24 +25,26 @@ public class DownloadAgentTest {
 
         @Override
         public void progressUpdate(long percent) {
-            System.out.println(percent);
-            assertEquals(percent, testPercent);
-            testPercent++;
+            testPercent=percent;
+        }
+
+        public void assertLastProgressUpdateIs(long finalPercent){
+            assertThat(finalPercent,is(equalTo(testPercent)));
         }
     }
 
     @Test
     public void happyPath() throws Exception {
         DownloadProgressSpectator downloadProgressSpectator = new DownloadProgressSpectator();
-        DownloadAgent downloadAgent = new DownloadAgent(downloadProgressSpectator, "src/downloadedfiles/abvCopy.jpeg");
+        DownloadAgent downloadAgent = new DownloadAgent(downloadProgressSpectator);
         URI uri1 = this.getClass().getResource("abv.jpeg").toURI();
-        OutputStream out = new ByteArrayOutputStream();
+        ByteArrayOutputStream imageOutputStream = new ByteArrayOutputStream();
 
-        URL url = uri1.toURL();
-        URLConnection urlConnection = url.openConnection();
-        byte data2[] = ByteStreams.toByteArray(urlConnection.getInputStream());
+        downloadAgent.downloadFile(uri1, imageOutputStream);
 
-        assertArrayEquals(downloadAgent.downloadFile(uri1, out), data2);
+        byte[] expectedContent = ByteStreams.toByteArray(getClass().getResourceAsStream("abv.jpeg"));
+        assertArrayEquals(expectedContent, imageOutputStream.toByteArray());
+        downloadProgressSpectator.assertLastProgressUpdateIs(100);
     }
 }
 
