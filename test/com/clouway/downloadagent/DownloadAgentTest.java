@@ -39,9 +39,7 @@ public class DownloadAgentTest {
         DownloadAgent downloadAgent = new DownloadAgent(downloadProgressSpectator);
         URI uri1 = this.getClass().getResource("abv.jpeg").toURI();
         ByteArrayOutputStream imageOutputStream = new ByteArrayOutputStream();
-
         downloadAgent.downloadFile(uri1, imageOutputStream);
-
         byte[] expectedContent = ByteStreams.toByteArray(getClass().getResourceAsStream("abv.jpeg"));
         assertArrayEquals(expectedContent, imageOutputStream.toByteArray());
         downloadProgressSpectator.assertLastProgressUpdateIs(100);
