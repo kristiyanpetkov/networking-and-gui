@@ -18,14 +18,13 @@ import static org.junit.Assert.assertEquals;
 public class DownloadAgentTest {
 
     public class DownloadProgressSpectator implements ProgressSpectator {
-        int testPercent=0;
+        long testPercent = 0;
+
         @Override
         public void progressUpdate(long percent) {
-            if(testPercent!=percent){
-                System.out.println(percent + "%");
-                testPercent++;
-            }
-
+            System.out.println(percent);
+            assertEquals(percent, testPercent);
+            testPercent++;
         }
     }
 
@@ -35,15 +34,12 @@ public class DownloadAgentTest {
         DownloadAgent downloadAgent = new DownloadAgent(downloadProgressSpectator, "src/downloadedfiles/abvCopy.jpeg");
         URI uri1 = this.getClass().getResource("abv.jpeg").toURI();
         OutputStream out = new ByteArrayOutputStream();
-        downloadAgent.downloadFile(uri1, out);
-
-        InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream("downloadedfiles/abvCopy.jpeg");
-        byte data1[] = ByteStreams.toByteArray(in);
 
         URL url = uri1.toURL();
         URLConnection urlConnection = url.openConnection();
         byte data2[] = ByteStreams.toByteArray(urlConnection.getInputStream());
 
-        assertArrayEquals(data1, data2);
+        assertArrayEquals(downloadAgent.downloadFile(uri1, out), data2);
     }
 }
+
