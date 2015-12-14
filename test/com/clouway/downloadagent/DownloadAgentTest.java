@@ -13,6 +13,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -25,7 +26,11 @@ public class DownloadAgentTest {
 
         @Override
         public void progressUpdate(long percent) {
-            testPercent=percent;
+            assertEquals(percent,testPercent);
+            System.out.println(testPercent);
+            if(testPercent<100) {
+                testPercent++;
+            }
         }
 
         public void assertLastProgressUpdateIs(long finalPercent){
