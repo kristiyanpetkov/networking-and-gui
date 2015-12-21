@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
  * Created by clouway on 15-12-21.
  */
 public class DateServerTest {
-    public class DisplayDate implements Display {
+    public class FakeDisplay implements Display {
         String message;
 
         @Override
@@ -51,12 +51,12 @@ public class DateServerTest {
 
     @Test
     public void happyPath() {
-        final DisplayDate displayDate = new DisplayDate();
+        final FakeDisplay fakeDisplay = new FakeDisplay();
         final Date date = new Date();
         pretendThatCurrentDateIs(date);
-        final Client clientServer = new Client("localhost", 8000, displayDate);
+        final Client clientServer = new Client("localhost", 8000, fakeDisplay);
         clientServer.connectClient();
-        assertEquals(displayDate.message, "Hello! Current date: " + date);
+        assertEquals(fakeDisplay.message, "Hello! Current date: " + date);
     }
 
     @After

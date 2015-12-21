@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9353582c-3694-414a-823a-677ae9db6b63" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java" afterPath="$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java" afterPath="$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="networking-and-gui.iws" />
@@ -27,10 +27,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DateServer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DateServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42789224">
+            <state vertical-scroll-proportion="0.0">
               <caret line="34" column="62" selection-start-line="34" selection-start-column="62" selection-end-line="34" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -63,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DateServerTest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DateServerTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
+            <state vertical-scroll-proportion="-0.16640253">
+              <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1628#1629#0" expanded="true" />
@@ -108,8 +108,8 @@
         <option value="$PROJECT_DIR$/src/com/clouway/dateserverandclient/Clock.java" />
         <option value="$PROJECT_DIR$/src/com/clouway/dateserverandclient/Display.java" />
         <option value="$PROJECT_DIR$/src/com/clouway/dateserverandclient/Client.java" />
-        <option value="$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java" />
         <option value="$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java" />
+        <option value="$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java" />
       </list>
     </option>
   </component>
@@ -584,7 +584,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450701097684</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="try/catch block split.">
+      <created>1450701634137</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1450701634137</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -626,7 +632,8 @@
     <MESSAGE value="each percentage update check added." />
     <MESSAGE value="unnecessary class level references removed,smell removed and the private methods in the test class moved to the proper place ." />
     <MESSAGE value="unnecessary references removed." />
-    <option name="LAST_COMMIT_MESSAGE" value="unnecessary references removed." />
+    <MESSAGE value="try/catch block split." />
+    <option name="LAST_COMMIT_MESSAGE" value="try/catch block split." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1080,26 +1087,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1628#1629#0" expanded="true" />
-            <element signature="e#1667#1668#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42789224">
+        <state vertical-scroll-proportion="0.0">
           <caret line="34" column="62" selection-start-line="34" selection-start-column="62" selection-end-line="34" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#520#1351#0" expanded="true" />
             <element signature="e#1350#1351#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.16640253">
+          <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1628#1629#0" expanded="true" />
+            <element signature="e#1667#1668#0" expanded="true" />
           </folding>
         </state>
       </provider>
