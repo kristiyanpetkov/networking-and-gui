@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="jmock-legacy-2.6.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/jmock-2.6.0/jmock-legacy-2.6.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jmock-2.6.0/jmock-script-2.6.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jmock-2.6.0/jmock-2.6.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/jmock-2.6.0/jmock-legacy-2.6.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jmock-2.6.0/jmock-script-2.6.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/jmock-2.6.0/jmock-2.6.0.jar!/" />
+    </SOURCES>
+  </library>
+</component>
