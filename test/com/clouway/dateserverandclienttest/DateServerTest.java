@@ -40,13 +40,6 @@ public class DateServerTest {
     @Mock
     Clock clock;
 
-    private void pretendThatCurrentDateIs(final Date date) {
-        context.checking(new Expectations() {{
-            oneOf(clock).now();
-            will(returnValue(date));
-        }});
-    }
-
     private DateServer dateServer = null;
 
     @Before
@@ -62,11 +55,19 @@ public class DateServerTest {
         final Date date = new Date();
         pretendThatCurrentDateIs(date);
         final Client clientServer = new Client("localhost", 8000, displayDate);
-        assertEquals(clientServer.connectClient(), "Hello! Current date: " + date);
+        clientServer.connectClient();
+        assertEquals(displayDate.message, "Hello! Current date: " + date);
     }
 
     @After
     public void stopServer() {
         dateServer.stopServer();
+    }
+
+    private void pretendThatCurrentDateIs(final Date date) {
+        context.checking(new Expectations() {{
+            oneOf(clock).now();
+            will(returnValue(date));
+        }});
     }
 }

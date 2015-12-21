@@ -10,28 +10,24 @@ import java.net.Socket;
  */
 public class Client {
     private Display display;
-    public BufferedReader in;
-    public String dateAndTime;
     private final String serverIP;
     private final int serverPort;
 
     public Client(String serverIP, int serverPort, Display display) {
         this.serverIP = serverIP;
         this.serverPort = serverPort;
-        this.display=display;
+        this.display = display;
     }
 
-    public String connectClient() {
-        dateAndTime = null;
+    public void connectClient() {
         try {
             Socket socket = new Socket(serverIP, serverPort);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            dateAndTime = in.readLine();
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String dateAndTime = in.readLine();
             display.setMessage(dateAndTime);
             socket.close();
         } catch (IOException ioEx) {
             ioEx.printStackTrace();
         }
-        return dateAndTime;
     }
 }

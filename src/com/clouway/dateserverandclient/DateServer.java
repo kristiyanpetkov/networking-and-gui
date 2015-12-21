@@ -1,4 +1,5 @@
 package com.clouway.dateserverandclient;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,7 +24,7 @@ public class DateServer {
     private Socket socket;
 
     public void startServer() {
-        (thread=new Thread() {
+        (thread = new Thread() {
             @Override
             public void run() {
                 try {
