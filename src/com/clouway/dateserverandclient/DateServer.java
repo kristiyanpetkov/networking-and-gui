@@ -13,7 +13,6 @@ import java.util.Date;
 public class DateServer {
     private final int port;
     private final Clock clock;
-    private Thread thread;
 
     public DateServer(int port, Clock clock) {
         this.port = port;
@@ -21,16 +20,19 @@ public class DateServer {
     }
 
     private ServerSocket serverSocket;
-    private Socket socket;
 
     public void startServer() {
-        (thread = new Thread() {
+        (new Thread() {
             @Override
             public void run() {
                 try {
                     serverSocket = new ServerSocket(port);
+                }catch (IOException ioE) {
+                    ioE.printStackTrace();
+                }
+                try{
                     while (!isInterrupted()) {
-                        socket = serverSocket.accept();
+                       Socket socket = serverSocket.accept();
                         OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
                         Date date = clock.now();
                         out.write("Hello! Current date: " + date);
@@ -47,7 +49,6 @@ public class DateServer {
 
     public void stopServer() {
         try {
-            socket.close();
             serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
