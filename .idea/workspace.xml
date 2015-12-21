@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9353582c-3694-414a-823a-677ae9db6b63" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/clouway/dateserverandclient/Client.java" afterPath="$PROJECT_DIR$/src/com/clouway/dateserverandclient/Client.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java" afterPath="$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java" afterPath="$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="networking-and-gui.iws" />
@@ -32,12 +30,12 @@
       <file leaf-file-name="DateServer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.28526148">
-              <caret line="19" column="27" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.42789224">
+              <caret line="34" column="62" selection-start-line="34" selection-start-column="62" selection-end-line="34" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#583#1272#0" expanded="true" />
-                <element signature="e#1271#1272#0" expanded="true" />
+                <element signature="e#520#1351#0" expanded="true" />
+                <element signature="e#1350#1351#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -69,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="71" column="5" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
+              <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1628#1629#0" expanded="true" />
@@ -574,7 +572,19 @@
       <option name="project" value="LOCAL" />
       <updated>1450077274591</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="unnecessary class level references removed,smell removed and the private methods in the test class moved to the proper place .">
+      <created>1450700220192</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1450700220192</updated>
+    </task>
+    <task id="LOCAL-00008" summary="unnecessary references removed.">
+      <created>1450701097684</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1450701097684</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -614,7 +624,9 @@
     <MESSAGE value="downloadFile method changed to return byte array and&#10;progress update test fixed." />
     <MESSAGE value="downloadMethod and test fixed" />
     <MESSAGE value="each percentage update check added." />
-    <option name="LAST_COMMIT_MESSAGE" value="each percentage update check added." />
+    <MESSAGE value="unnecessary class level references removed,smell removed and the private methods in the test class moved to the proper place ." />
+    <MESSAGE value="unnecessary references removed." />
+    <option name="LAST_COMMIT_MESSAGE" value="unnecessary references removed." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1050,6 +1062,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/Display.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1061,7 +1083,7 @@
     <entry file="file://$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="5" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
+          <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1628#1629#0" expanded="true" />
@@ -1070,24 +1092,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28526148">
-          <caret line="19" column="27" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.42789224">
+          <caret line="34" column="62" selection-start-line="34" selection-start-column="62" selection-end-line="34" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#583#1272#0" expanded="true" />
-            <element signature="e#1271#1272#0" expanded="true" />
+            <element signature="e#520#1351#0" expanded="true" />
+            <element signature="e#1350#1351#0" expanded="true" />
           </folding>
         </state>
       </provider>

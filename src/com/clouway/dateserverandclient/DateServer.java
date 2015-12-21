@@ -27,21 +27,21 @@ public class DateServer {
             public void run() {
                 try {
                     serverSocket = new ServerSocket(port);
-                }catch (IOException ioE) {
+                } catch (IOException ioE) {
                     ioE.printStackTrace();
                 }
-                try{
-                    while (!isInterrupted()) {
-                       Socket socket = serverSocket.accept();
+                while (!isInterrupted()) {
+                    try {
+                        Socket socket = serverSocket.accept();
                         OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
                         Date date = clock.now();
                         out.write("Hello! Current date: " + date);
                         out.close();
                         interrupt();
 
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
         }).start();
