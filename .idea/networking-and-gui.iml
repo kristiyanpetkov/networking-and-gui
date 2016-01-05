@@ -26,5 +26,6 @@
     <orderEntry type="library" name="jmock-junit4-2.6.0" level="project" />
     <orderEntry type="library" name="jmock-legacy-2.6.0" level="project" />
     <orderEntry type="library" name="jmock-2.6.0" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.18-bin" level="project" />
   </component>
 </module>
