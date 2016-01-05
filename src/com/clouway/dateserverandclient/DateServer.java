@@ -14,6 +14,7 @@ public class DateServer {
     private final int port;
     private final Clock clock;
     private Thread t1;
+
     public DateServer(int port, Clock clock) {
         this.port = port;
         this.clock = clock;
@@ -22,7 +23,7 @@ public class DateServer {
     private ServerSocket serverSocket;
 
     public void startServer() {
-        (t1=new Thread() {
+        (t1 = new Thread() {
             @Override
             public void run() {
                 try {

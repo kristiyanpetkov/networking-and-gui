@@ -4,7 +4,6 @@
     <list default="true" id="9353582c-3694-414a-823a-677ae9db6b63" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java" afterPath="$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java" afterPath="$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/networking-and-gui.iml" afterPath="$PROJECT_DIR$/.idea/networking-and-gui.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="networking-and-gui.iws" />
@@ -29,16 +28,62 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DateServer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DateServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.530303">
-              <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="43" column="21" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#545#1375#0" expanded="true" />
-                <element signature="e#1374#1375#0" expanded="true" />
+                <element signature="e#548#1378#0" expanded="true" />
+                <element signature="e#1377#1378#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DateServerTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="63" column="32" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1628#1629#0" expanded="true" />
+                <element signature="e#1667#1668#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/Client.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Clock.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/Clock.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Display.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/Display.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.2020202">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -74,12 +119,12 @@
         <option value="$PROJECT_DIR$/src/com/clouway/dateserverandclient/Clock.java" />
         <option value="$PROJECT_DIR$/src/com/clouway/dateserverandclient/Client.java" />
         <option value="$PROJECT_DIR$/src/com/clouway/dateserverandclient/Display.java" />
-        <option value="$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java" />
         <option value="$PROJECT_DIR$/src/com/clouway/dateserverandclient/TestClass.java" />
         <option value="$PROJECT_DIR$/src/com/clouway/dateserverandclient/slavi/PersistentUserRepository.java" />
         <option value="$PROJECT_DIR$/src/com/clouway/dateserverandclient/slavi/TestClass.java" />
         <option value="$PROJECT_DIR$/src/com/clouway/multiclientserver/Display.java" />
         <option value="$PROJECT_DIR$/src/com/clouway/multiclientserver/Server.java" />
+        <option value="$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java" />
         <option value="$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java" />
       </list>
     </option>
@@ -594,7 +639,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450702408598</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="stop thread and server socket">
+      <created>1451987914903</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1451987914903</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -646,7 +697,8 @@
     <MESSAGE value="unnecessary references removed." />
     <MESSAGE value="try/catch block split." />
     <MESSAGE value="DisplayDate class name changed to FakeDisplay." />
-    <option name="LAST_COMMIT_MESSAGE" value="DisplayDate class name changed to FakeDisplay." />
+    <MESSAGE value="stop thread and server socket" />
+    <option name="LAST_COMMIT_MESSAGE" value="stop thread and server socket" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -958,24 +1010,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/Clock.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19017433">
-          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/Display.java">
+    <entry file="file://$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-          <folding />
+          <caret line="63" column="32" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1628#1629#0" expanded="true" />
+            <element signature="e#1667#1668#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2777778">
+        <state vertical-scroll-proportion="0.0">
           <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -983,27 +1032,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/clouway/dateserverandclienttest/DateServerTest.java">
+    <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/Clock.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1060606">
-          <caret line="63" column="36" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1720#1721#0" expanded="true" />
-            <element signature="e#1767#1768#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/DateServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.530303">
-          <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="21" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#545#1375#0" expanded="true" />
-            <element signature="e#1374#1375#0" expanded="true" />
+            <element signature="e#548#1378#0" expanded="true" />
+            <element signature="e#1377#1378#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/clouway/dateserverandclient/Display.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2020202">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -32,42 +32,42 @@ public class DateServerTest {
     }
 
 
-        @Rule
-        public JUnitRuleMockery context = new JUnitRuleMockery() {{
-            setThreadingPolicy(new Synchroniser());
-        }};
+    @Rule
+    public JUnitRuleMockery context = new JUnitRuleMockery() {{
+        setThreadingPolicy(new Synchroniser());
+    }};
 
-        @Mock
-        Clock clock;
+    @Mock
+    Clock clock;
 
-        private DateServer dateServer = null;
+    private DateServer dateServer = null;
 
-        @Before
-        public void startServer() {
-            dateServer = new DateServer(8000, clock);
-            dateServer.startServer();
-        }
-
-
-        @Test
-        public void happyPath() {
-            final FakeDisplay fakeDisplay = new FakeDisplay();
-            final Date date = new Date();
-            pretendThatCurrentDateIs(date);
-            final Client clientServer = new Client("localhost", 8000, fakeDisplay);
-            clientServer.connectClient();
-            assertEquals(fakeDisplay.message, "Hello! Current date: " + date);
-        }
-
-        @After
-        public void stopServer() {
-            dateServer.stopServer();
-        }
-
-        private void pretendThatCurrentDateIs(final Date date) {
-            context.checking(new Expectations() {{
-                oneOf(clock).now();
-                will(returnValue(date));
-            }});
-        }
+    @Before
+    public void startServer() {
+        dateServer = new DateServer(8000, clock);
+        dateServer.startServer();
     }
+
+
+    @Test
+    public void happyPath() {
+        final FakeDisplay fakeDisplay = new FakeDisplay();
+        final Date date = new Date();
+        pretendThatCurrentDateIs(date);
+        final Client clientServer = new Client("localhost", 8000, fakeDisplay);
+        clientServer.connectClient();
+        assertEquals(fakeDisplay.message, "Hello! Current date: " + date);
+    }
+
+    @After
+    public void stopServer() {
+        dateServer.stopServer();
+    }
+
+    private void pretendThatCurrentDateIs(final Date date) {
+        context.checking(new Expectations() {{
+            oneOf(clock).now();
+            will(returnValue(date));
+        }});
+    }
+}
