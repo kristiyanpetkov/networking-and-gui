@@ -61,16 +61,17 @@ public class Server extends AbstractExecutionThreadService implements Connection
     public void onClose(ClientConnection clientConnection) {
         synchronized (clientsList) {
             clientsList.remove(clientConnection);
-            ;
         }
     }
 
     private void sendMessageToAllClients() {
-        Iterator<ClientConnection> clientConnectionIterator = clientsList.iterator();
-        while (clientConnectionIterator.hasNext()) {
-            ClientConnection clientConection1 = clientConnectionIterator.next();
-            int clientNumber = clientsList.size();
-            clientConection1.sendMessage("Client number" + clientConection1 + " has connected");
+        synchronized (clientsList) {
+            Iterator<ClientConnection> clientConnectionIterator = clientsList.iterator();
+            while (clientConnectionIterator.hasNext()) {
+                ClientConnection clientConection1 = clientConnectionIterator.next();
+                int clientNumber = clientsList.size();
+                clientConection1.sendMessage("Client number" + clientConection1 + " has connected");
+            }
         }
     }
 }

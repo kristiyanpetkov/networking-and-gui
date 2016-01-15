@@ -31,15 +31,6 @@ public class MultiClientSeverTest {
         server.startAsync().awaitRunning();
     }
 
-
-    @Test
-    public void oneClientConnected() {
-        ClientsDisplay clientsDisplay = new ClientsDisplay();
-        Client client = new Client("localhost", 4008, clientsDisplay);
-        client.connect();
-        assertThat(clientsDisplay.message, is("Hello! You are client number 1 "));
-    }
-
     @Test
     public void twoClientsConnected() {
         ClientsDisplay clientsDisplay = new ClientsDisplay();
