@@ -34,13 +34,15 @@ public class Server extends AbstractExecutionThreadService implements Connection
     @Override
     protected void run() {
         try {
-            Socket client = null;
             while (isRunning()) {
                 final ClientConnection clientConnection = new ClientConnection(serverSocket.accept(), this);
                 int currentConnectionCount = clientsList.size() + 1;
                 clientConnection.sendMessage(String.format("Hello! You are client number %d \n", currentConnectionCount));
-                synchronized (clientsList) {
-                    clientsList.add(clientConnection);
+                clientsList.add(clientConnection);
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
                 sendMessageToAllClients();
             }
@@ -59,19 +61,16 @@ public class Server extends AbstractExecutionThreadService implements Connection
 
     @Override
     public void onClose(ClientConnection clientConnection) {
-        synchronized (clientsList) {
-            clientsList.remove(clientConnection);
-        }
+        clientsList.remove(clientConnection);
     }
 
     private void sendMessageToAllClients() {
-        synchronized (clientsList) {
-            Iterator<ClientConnection> clientConnectionIterator = clientsList.iterator();
-            while (clientConnectionIterator.hasNext()) {
-                ClientConnection clientConection1 = clientConnectionIterator.next();
-                int clientNumber = clientsList.size();
-                clientConection1.sendMessage("Client number" + clientConection1 + " has connected");
-            }
+
+        Iterator<ClientConnection> clientConnectionIterator = clientsList.iterator();
+        while (clientConnectionIterator.hasNext()) {
+            ClientConnection clientConection1 = clientConnectionIterator.next();
+            int clientNumber = clientsList.size();
+            clientConection1.sendMessage("Client number" + clientConection1 + " has connected");
         }
     }
 }
