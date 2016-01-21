@@ -13,5 +13,10 @@ public class DemoClient {
         };
         Client client = new Client("localhost",4007,display);
         client.connect();
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

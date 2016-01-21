@@ -1,8 +1,6 @@
 package com.clouway.multiclientserver;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -20,12 +18,14 @@ public class Client {
         this.display = display;
     }
 
+
     public void connect() {
         try {
             socket = new Socket(ip, port);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String recievedMessage = in.readLine();
             display.setMessage(recievedMessage);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,7 +33,11 @@ public class Client {
 
     public void disconnect() {
         try {
-            socket.close();
+            OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
+            out.write("Closed\n");
+            out.flush();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String l = reader.readLine();
         } catch (IOException e) {
         }
     }

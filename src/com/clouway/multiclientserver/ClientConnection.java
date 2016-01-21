@@ -20,13 +20,13 @@ public class ClientConnection {
             OutputStreamWriter out = new OutputStreamWriter(client.getOutputStream());
             out.write(message);
             out.flush();
-            Thread thr;
-            (thr = new Thread() {
+            Thread thr = new Thread() {
                 @Override
                 public void run() {
                     readMessage();
                 }
-            }).start();
+            };
+            thr.start();
         } catch (IOException ioe) {
             connectionStateChangeListener.onClose(this);
         }
@@ -34,11 +34,11 @@ public class ClientConnection {
 
     public void readMessage() {
         try {
-            InputStream in = new BufferedInputStream(client.getInputStream());
-            int bytes = in.read();
-            in.close();
-        } catch (IOException e) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            in.readLine();
             connectionStateChangeListener.onClose(this);
+            client.close();
+        } catch (IOException e) {
         }
     }
 }
