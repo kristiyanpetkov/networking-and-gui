@@ -7,18 +7,15 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+
 
 /**
  * Created by clouway on 16-1-5.
  */
 public class Server extends AbstractExecutionThreadService implements ConnectionStateChangeListener {
     private int port;
-    public BlockingQueue<ClientConnection> clientsList = new ArrayBlockingQueue<ClientConnection>(6);
-    //    public final List<ClientConnection> clientsList = new ArrayList<>();
+    public final List<ClientConnection> clientsList = new ArrayList<>();
     private ServerSocket serverSocket;
-    private Client client;
 
     public Server(int port) {
         this.port = port;
