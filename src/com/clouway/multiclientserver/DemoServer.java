@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Created by clouway on 16-1-12.
  */
-public class Demo {
+public class DemoServer {
     public static void main(String[] args) {
         Display display = new Display() {
             @Override
@@ -18,14 +18,5 @@ public class Demo {
         };
         final Server server = new Server(4007);
         server.startAsync().awaitRunning();
-//        Clock clock = new Clock() {
-//            @Override
-//            public Date now() {
-//                return new Date();
-//            }
-//        };
-//
-//        DateServer dateServer = new DateServer(4007,clock);
-//        dateServer.startServer();
     }
 }

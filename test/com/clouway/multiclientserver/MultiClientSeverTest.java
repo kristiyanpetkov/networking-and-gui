@@ -48,14 +48,14 @@ public class MultiClientSeverTest {
         assertThat(clientSequenceDisplay.message, is("Hello! You are client number 1 "));
         client.connect();
         assertThat(clientSequenceDisplay.message, is("Hello! You are client number 2 "));
-        client.disconnect();
+        client.sendDisconnect();
         client.connect();
         assertThat(clientSequenceDisplay.message, is("Hello! You are client number 2 "));
         client.connect();
         assertThat(clientSequenceDisplay.message, is("Hello! You are client number 3 "));
         client.connect();
         assertThat(clientSequenceDisplay.message, is("Hello! You are client number 4 "));
-        client.disconnect();
+        client.sendDisconnect();
         client.connect();
         assertThat(clientSequenceDisplay.message, is("Hello! You are client number 4 "));
     }

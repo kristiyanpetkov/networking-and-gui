@@ -9,6 +9,7 @@ import java.net.Socket;
 public class ClientConnection {
     private Socket client;
     private ConnectionStateChangeListener connectionStateChangeListener;
+    private boolean enterThreadOneTimeOnly =false;
 
     public ClientConnection(Socket client, ConnectionStateChangeListener connectionStateChangeListener) {
         this.client = client;
@@ -20,13 +21,16 @@ public class ClientConnection {
             OutputStreamWriter out = new OutputStreamWriter(client.getOutputStream());
             out.write(message);
             out.flush();
-            Thread thr = new Thread() {
-                @Override
-                public void run() {
-                    readMessage();
-                }
-            };
-            thr.start();
+            if(enterThreadOneTimeOnly ==false) {
+                Thread thr = new Thread() {
+                    @Override
+                    public void run() {
+                        readMessage();
+                    }
+                };
+                thr.start();
+            }
+            enterThreadOneTimeOnly = true;
         } catch (IOException ioe) {
             connectionStateChangeListener.onClose(this);
         }
@@ -35,7 +39,7 @@ public class ClientConnection {
     public void readMessage() {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            in.readLine();
+            in.read();
             connectionStateChangeListener.onClose(this);
             client.close();
         } catch (IOException e) {

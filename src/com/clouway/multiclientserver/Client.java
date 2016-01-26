@@ -31,7 +31,7 @@ public class Client {
         }
     }
 
-    public void disconnect() {
+    public void sendDisconnect() {
         try {
             OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
             out.write("Closed\n");
