@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class MultiClientSeverTest {
 
-    public class ClientSequenceDisplay implements Display {
+    public class FakeDisplay implements Display {
         private String message;
 
         @Override
@@ -32,32 +32,32 @@ public class MultiClientSeverTest {
 
     @Test
     public void twoClientsConnected() {
-        ClientSequenceDisplay clientSequenceDisplay = new ClientSequenceDisplay();
-        Client client = new Client("localhost", 4008, clientSequenceDisplay);
+        FakeDisplay fakeDisplay = new FakeDisplay();
+        Client client = new Client("localhost", 4008, fakeDisplay);
         client.connect();
-        assertThat(clientSequenceDisplay.message, is("Hello! You are client number 1 "));
+        assertThat(fakeDisplay.message, is("Hello! You are client number 1 "));
         client.connect();
-        assertThat(clientSequenceDisplay.message, is("Hello! You are client number 2 "));
+        assertThat(fakeDisplay.message, is("Hello! You are client number 2 "));
     }
 
     @Test
     public void clientsConnectAndDisconnect() {
-        ClientSequenceDisplay clientSequenceDisplay = new ClientSequenceDisplay();
-        Client client = new Client("localhost", 4008, clientSequenceDisplay);
+        FakeDisplay fakeDisplay = new FakeDisplay();
+        Client client = new Client("localhost", 4008, fakeDisplay);
         client.connect();
-        assertThat(clientSequenceDisplay.message, is("Hello! You are client number 1 "));
+        assertThat(fakeDisplay.message, is("Hello! You are client number 1 "));
         client.connect();
-        assertThat(clientSequenceDisplay.message, is("Hello! You are client number 2 "));
+        assertThat(fakeDisplay.message, is("Hello! You are client number 2 "));
         client.sendDisconnect();
         client.connect();
-        assertThat(clientSequenceDisplay.message, is("Hello! You are client number 2 "));
+        assertThat(fakeDisplay.message, is("Hello! You are client number 2 "));
         client.connect();
-        assertThat(clientSequenceDisplay.message, is("Hello! You are client number 3 "));
+        assertThat(fakeDisplay.message, is("Hello! You are client number 3 "));
         client.connect();
-        assertThat(clientSequenceDisplay.message, is("Hello! You are client number 4 "));
+        assertThat(fakeDisplay.message, is("Hello! You are client number 4 "));
         client.sendDisconnect();
         client.connect();
-        assertThat(clientSequenceDisplay.message, is("Hello! You are client number 4 "));
+        assertThat(fakeDisplay.message, is("Hello! You are client number 4 "));
     }
 
     @After
