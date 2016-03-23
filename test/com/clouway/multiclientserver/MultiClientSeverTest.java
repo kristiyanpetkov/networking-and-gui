@@ -31,6 +31,13 @@ public class MultiClientSeverTest {
     }
 
     @Test
+    public void disconnectBeforeConnect(){
+        FakeDisplay fakeDisplay = new FakeDisplay();
+        Client client = new Client("localhost", 4008, fakeDisplay);
+        client.sendDisconnect();
+    }
+
+    @Test
     public void twoClientsConnected() {
         FakeDisplay fakeDisplay = new FakeDisplay();
         Client client = new Client("localhost", 4008, fakeDisplay);

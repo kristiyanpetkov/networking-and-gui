@@ -9,7 +9,7 @@ import java.net.Socket;
 public class ClientConnection {
     private Socket client;
     private ConnectionStateChangeListener connectionStateChangeListener;
-    private boolean enterThreadOneTimeOnly =false;
+    private boolean enterThreadOneTimeOnly = false;
 
     public ClientConnection(Socket client, ConnectionStateChangeListener connectionStateChangeListener) {
         this.client = client;
@@ -21,7 +21,7 @@ public class ClientConnection {
             OutputStreamWriter out = new OutputStreamWriter(client.getOutputStream());
             out.write(message);
             out.flush();
-            if(enterThreadOneTimeOnly ==false) {
+            if (enterThreadOneTimeOnly == false) {
                 Thread thr = new Thread() {
                     @Override
                     public void run() {
